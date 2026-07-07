@@ -153,7 +153,14 @@ section{padding:72px 0}
 }
 .site-header.scrolled{box-shadow:0 4px 18px rgba(0,0,0,.35)}
 .header-in{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px;min-height:68px}
-.logo{font-family:var(--display);text-decoration:none;line-height:1;display:flex;flex-direction:column}
+.logo{font-family:var(--display);text-decoration:none;line-height:1;display:flex;align-items:center;gap:11px}
+.logo-img{height:44px;width:auto;filter:drop-shadow(0 0 6px rgba(255,255,255,.3))}
+.logo-text{display:flex;flex-direction:column}
+.menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:48px;height:48px;background:none;border:2px solid rgba(255,255,255,.35);
+  border-radius:5px;color:#fff;cursor:pointer;
+}
 .logo .l1{font-size:1.7rem;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase}
 .logo .l1 em{font-style:normal;color:var(--red)}
 .logo .l2{font-size:.72rem;font-weight:500;letter-spacing:.3em;color:#9FB0C0;text-transform:uppercase;margin-top:2px}
@@ -171,8 +178,17 @@ section{padding:72px 0}
 /* Mobile bottom call bar */
 .callbar{display:none}
 @media (max-width:820px){
-  .nav{display:none}
   .header-call{display:none}
+  .menu-btn{display:inline-flex}
+  .nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;background:var(--navy-deep);
+    padding:6px 14px 14px;border-bottom:3px solid var(--red);
+    box-shadow:0 16px 28px rgba(0,0,0,.4);
+  }
+  .nav.open{display:flex}
+  .nav a{min-height:48px;font-size:1.3rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav a::after{display:none}
   .callbar{
     display:flex;position:fixed;left:0;right:0;bottom:0;z-index:110;
     background:var(--red);color:#fff;text-decoration:none;
@@ -191,7 +207,7 @@ section{padding:72px 0}
   background:var(--navy);padding:96px 0;
 }
 .hero-bg{position:absolute;inset:0;background:url("hero-exterior.jpg") center 62%/cover no-repeat;filter:saturate(.92) contrast(1.05)}
-.hero-shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(15,25,36,.92) 0%,rgba(15,25,36,.78) 42%,rgba(15,25,36,.28) 100%)}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(15,25,36,.86) 0%,rgba(15,25,36,.68) 42%,rgba(15,25,36,.18) 100%)}
 .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:0 24px;color:#fff;width:100%}
 .hero-est{font-family:var(--mono);font-size:.95rem;letter-spacing:.18em;color:#C7D2DC;text-transform:uppercase;margin-bottom:14px}
 .hero-est b{color:#fff}
@@ -231,7 +247,10 @@ section{padding:72px 0}
   padding:30px 32px 36px;
   background-image:repeating-linear-gradient(180deg,transparent 0 35px,rgba(70,96,122,.12) 35px 36px);
 }
-.sheet-head{border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:6px}
+.sheet-head{border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:6px;position:relative;padding-right:112px}
+.sheet-logo{position:absolute;right:0;top:-2px;width:100px;height:auto}
+@media (max-width:420px){.sheet-head{padding-right:78px}.sheet-logo{width:70px}}
+.footer-logo{width:130px;height:auto;filter:drop-shadow(0 0 6px rgba(255,255,255,.28))}
 .sheet-head h3{font-family:var(--mono);font-weight:600;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
 .sheet-meta{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:.8rem;color:var(--steel);margin-top:8px}
 .sheet ul{list-style:none}
@@ -361,10 +380,16 @@ section{padding:72px 0}
 <header class="site-header" id="top">
   <div class="header-in">
     <a class="logo" href="#top" aria-label="Oviedo Car Care — home">
-      <span class="l1">Oviedo <em>Car Care</em></span>
-      <span class="l2">Your Hometown Garage</span>
+      <img class="logo-img" src="logo-small.png" alt="" width="57" height="44">
+      <span class="logo-text">
+        <span class="l1">Oviedo <em>Car Care</em></span>
+        <span class="l2">Your Hometown Garage</span>
+      </span>
     </a>
-    <nav class="nav" aria-label="Main navigation">
+    <button class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Main navigation">
       <a href="#services">Services</a>
       <a href="#why-us">Why Us</a>
       <a href="#reviews">Reviews</a>
@@ -444,6 +469,7 @@ section{padding:72px 0}
       </div>
       <div class="sheet reveal" role="list" aria-label="Our promises, presented as an inspection checklist">
         <div class="sheet-head">
+          <img class="sheet-logo" src="logo.png" alt="Oviedo Car Care emblem — a wrench through a gear, Est. 2009" loading="lazy">
           <h3>Courtesy Inspection — Shop Standards</h3>
           <div class="sheet-meta">
             <span>SHOP: OVIEDO CAR CARE</span>
@@ -654,6 +680,7 @@ section{padding:72px 0}
 <!-- ================= FOOTER ================= -->
 <footer class="band footer">
   <div class="wrap footer-in">
+    <img class="footer-logo" src="logo.png" alt="" loading="lazy">
     <div>
       <span class="lic">OVIEDO CAR CARE MV-100686</span><br>
       © 2026 Oviedo Car Care · Family owned &amp; operated since 2009
@@ -680,6 +707,24 @@ section{padding:72px 0}
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   els.forEach(function(el){ io.observe(el); });
+
+  // Mobile menu toggle
+  var btn = document.querySelector(".menu-btn");
+  var nav = document.getElementById("site-nav");
+  if (btn && nav) {
+    btn.addEventListener("click", function(){
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open);
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    });
+    nav.addEventListener("click", function(e){
+      if (e.target.tagName === "A") {
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "Open menu");
+      }
+    });
+  }
 
   // Header shadow once scrolled
   var header = document.querySelector(".site-header");
